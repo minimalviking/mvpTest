@@ -1,7 +1,5 @@
 package com.unii.flingtwo.login;
 
-import android.text.Editable;
-
 /**
  * Created by Jacek Olszewski on 02/06/15.
  */
@@ -10,7 +8,9 @@ public interface LoginPresenterInterface  {
 
     void unbindView();
 
-    void onTextChanged(Editable email, Editable password);
+    void onTextChanged(String email, String password);
 
     void onLoginButtonClick();
+
+    boolean isLoginAllowed();
 }

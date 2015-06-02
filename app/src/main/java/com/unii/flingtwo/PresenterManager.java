@@ -24,4 +24,9 @@ public class PresenterManager {
         return loginPresenter;
     }
 
+
+    public void clearPresenters() {
+        loginPresenter = null;
+    }
+
 }

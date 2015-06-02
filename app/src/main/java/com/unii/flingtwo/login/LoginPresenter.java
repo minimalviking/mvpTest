@@ -1,7 +1,5 @@
 package com.unii.flingtwo.login;
 
-import android.text.Editable;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -32,15 +30,18 @@ public class LoginPresenter implements LoginPresenterInterface {
         view = null;
     }
 
-    private boolean isLoginAllowed() {
+    @Override
+    public boolean isLoginAllowed() {
         return email != null && password != null && email.contains("@") && password.length() > 5;
     }
 
     @Override
-    public void onTextChanged(Editable email, Editable password) {
-        this.email = email.toString();
-        this.password = password.toString();
-        view.setButtonEnabled(isLoginAllowed());
+    public void onTextChanged(String email, String password) {
+        this.email = email;
+        this.password = password;
+        if (view != null) {
+            view.setButtonEnabled(isLoginAllowed());
+        }
     }
 
     @Override

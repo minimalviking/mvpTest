@@ -35,7 +35,7 @@ public class LoginActivity extends Activity implements LoginActivityInterface {
         @Override
         public void afterTextChanged(Editable editable) {
             if (presenter != null) {
-                presenter.onTextChanged(emailEditText.getText(), passwordEditText.getText());
+                presenter.onTextChanged(emailEditText.getText().toString(), passwordEditText.getText().toString());
             }
         }
     };
