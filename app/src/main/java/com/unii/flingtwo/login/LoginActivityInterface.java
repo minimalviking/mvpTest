@@ -9,4 +9,12 @@ public interface LoginActivityInterface {
     String getEmail();
 
     String getPassword();
+
+    void setEmail(String email);
+
+    void setPassword(String password);
+
+    void showProgress(boolean b);
+
+    void loginSuccess();
 }

@@ -25,4 +25,12 @@
         android:text="login"
         android:id="@+id/loginButton"
         android:enabled="false"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:id="@+id/progressView"
+        android:text="PROOOOOGREEEESS..."/>
 </LinearLayout>

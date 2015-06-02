@@ -1,28 +1,27 @@
 package com.unii.flingtwo.login;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.unii.flingtwo.BaseActivity;
+import com.unii.flingtwo.PresenterManager;
 import com.unii.flingtwo.R;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import icepick.Icicle;
 
 
-public class LoginActivity extends BaseActivity implements LoginActivityInterface {
+public class LoginActivity extends Activity implements LoginActivityInterface {
 
     @InjectView(R.id.loginEmail)    EditText emailEditText;
     @InjectView(R.id.loginPassword) EditText passwordEditText;
     @InjectView(R.id.loginButton)   Button   loginButton;
-
-    @Icicle String password;
-    @Icicle String email;
+    @InjectView(R.id.progressView)  View     progressView;
 
     LoginPresenterInterface presenter;
 
@@ -47,14 +46,9 @@ public class LoginActivity extends BaseActivity implements LoginActivityInterfac
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
 
-        if (presenter == null) {
-            presenter = new LoginPresenter();
-        }
+        presenter = PresenterManager.getInstance().getLoginPresenter();
 
-        emailEditText.setText(email);
-        passwordEditText.setText(password);
-
-        presenter.attatchView(this);
+        presenter.bindView(this);
 
         emailEditText.addTextChangedListener(fieldsWatcher);
         passwordEditText.addTextChangedListener(fieldsWatcher);
@@ -78,5 +72,40 @@ public class LoginActivity extends BaseActivity implements LoginActivityInterfac
     @Override
     public String getPassword() {
         return passwordEditText.getText().toString();
+    }
+
+    @Override
+    public void setEmail(String email) {
+        emailEditText.setText(email);
+    }
+
+    @Override
+    public void setPassword(String password) {
+        passwordEditText.setText(password);
+    }
+
+    @Override
+    public void showProgress(final boolean show) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (show) {
+                    progressView.setVisibility(View.VISIBLE);
+                } else {
+                    progressView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void loginSuccess() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivity.this, "LOGGED IN!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
